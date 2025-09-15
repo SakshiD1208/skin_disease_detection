@@ -1,0 +1,17 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual Environment
+venv310/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Jupyter
+*.ipynb_checkpoints
+
+# VSCode
+.vscode/
