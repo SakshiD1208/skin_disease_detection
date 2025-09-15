@@ -1,99 +1,129 @@
-# Skin Disease Detection Web App 
-A Django-based web application that allows users to upload skin images and get predictions of skin diseases using a pre-trained deep learning model. The app also provides precautions and advice for each detected disease.
+# 🩺 Skin Disease Detection Web App  
 
-*** Features ***
-▶ Image Upload: Easily upload skin images for analysis.
-▶ Disease Prediction: Predicts a variety of skin conditions, including:
-▶ Actinic keratosis
-▶ Atopic Dermatitis
-▶ Benign keratosis
-▶ Dermatofibroma
-▶ Melanocytic nevus
-▶ Melanoma
-▶ Squamous cell carcinoma
-▶ Tinea Ringworm Candidiasis
-▶ Vascular lesion
-▶ Preventative Advice: Displays precautionary advice for each predicted disease.
-▶ Prediction Storage: Stores all predictions in a database for easy retrieval.
+A **Django-based web application** that allows users to upload skin images and get predictions of skin diseases using a **pre-trained deep learning model**. The app also provides **precautions and advice** for each detected disease.  
 
-*** 💻 Requirements ***
-▶ Python 3.10
-▶ Django 5.2+
-▶ TensorFlow / Keras
-▶ Other Python packages: numpy, pillow
+---
 
-*** ⚙️ Installation & Setup ***
-Follow these steps to get the application running on your local machine.
+## ✨ Features  
+- 📤 **Image Upload**: Upload skin images for analysis.  
+- 🔍 **Disease Prediction**: Supports multiple conditions, including:  
+  - Actinic keratosis  
+  - Atopic Dermatitis  
+  - Benign keratosis  
+  - Dermatofibroma  
+  - Melanocytic nevus  
+  - Melanoma  
+  - Squamous cell carcinoma  
+  - Tinea / Ringworm / Candidiasis  
+  - Vascular lesion  
+- 🛡 **Preventative Advice**: Displays precautionary advice for each predicted disease.  
+- 💾 **Prediction Storage**: All predictions are saved in a database for later retrieval.  
 
-*** 1. Clone the repository ***
-Bash
+---
 
+## 💻 Requirements  
+- Python **3.10**  
+- Django **5.2+**  
+- TensorFlow / Keras  
+- Other Python packages: `numpy`, `pillow`  
+
+---
+
+## ⚙️ Installation & Setup  
+
+Follow these steps to get the application running locally:  
+
+### 1️⃣ Clone the repository  
+```bash
 git clone <REPO_URL>
-cd skin_project
-*** 2. Create and activate a virtual environment ***
-Bash
+cd skin_disease_detection
 
+2️⃣ Create and activate a virtual environment
 python -m venv venv310
-# Windows:
 
-Bash
+Windows:
 
 venv310\Scripts\activate
-# macOS/Linux:
 
-Bash
+
+macOS/Linux:
 
 source venv310/bin/activate
-*** 3. Install dependencies ***
-Install the required Python packages.
 
-Bash
+3️⃣ Install dependencies
 
-# Recommended: Install from requirements file
+From requirements.txt (recommended):
+
 pip install -r requirements.txt
 
-# Alternatively, install manually
+
+Or manually:
+
 pip install django tensorflow numpy pillow
-Note: If you encounter TensorFlow errors with Python 3.10, try installing a compatible version like pip install tensorflow==2.13.0.
 
-*** 4. Place the model file ***
-Copy the pre-trained deep learning model file (skin_disease_model.h5) to the project's root folder, in the same directory as manage.py.
 
-*** 5. Apply database migrations ***
-Bash
+⚠️ Note: If you face TensorFlow issues with Python 3.10, install a compatible version:
 
+pip install tensorflow==2.13.0
+
+4️⃣ Place the model file
+
+Copy the pre-trained model file skin_disease_model.h5 into the project’s root directory (same location as manage.py).
+
+5️⃣ Apply database migrations
 python manage.py makemigrations
 python manage.py migrate
-*** 6. Run the development server ***
-Bash
 
+6️⃣ Run the development server
 python manage.py runserver
-*** 🚀 Usage ***
-Open a web browser and navigate to http://127.0.0.1:8000/. On the homepage, use the form to upload a skin image and click "Predict". The app will display the predicted skin disease and relevant precautionary advice.
 
-*** 📁 Project Structure ***
-skin_project/
+🚀 Usage
+
+Open your browser and go to: http://127.0.0.1:8000/
+
+Upload a skin image using the form.
+
+Click Predict to view:
+
+The predicted skin disease
+
+Relevant precautionary advice
+
+📁 Project Structure
+
+skin_disease_detection/
 ├── manage.py
-├── skin_disease_model.h5    # Pre-trained deep learning model
+├── skin_disease_model.h5      # Pre-trained model
 ├── db.sqlite3
-├── media/                   # Uploaded images are stored here
-├── static/                  # CSS, JS, and other static files
-├── skin_project/            # Django project settings
+├── media/                     # Uploaded images
+├── static/                    # CSS, JS, assets
+├── skin_project/              # Django project
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
-└── predictor/               # Django application
-    ├── models.py            # Database models
-    ├── views.py             # Logic for handling requests
-    ├── forms.py             # Web forms
-    ├── urls.py              # App-specific URL configurations
+└── predictor/                 # Django app
+    ├── models.py              # Database models
+    ├── views.py               # Request handling
+    ├── forms.py               # Forms
+    ├── urls.py                # App URLs
     └── templates/
         └── predictor/
-            └── predict.html # HTML template for the prediction form
+            └── predict.html   # Upload & prediction page
+⚠️ Important Notes
 
-*** ⚠️ Important Notes ***
-▶ Ensure the model file (skin_disease_model.h5) is in the correct directory as specified in settings.py.
-▶ Verify that MEDIA_URL = '/media/' and MEDIA_ROOT = os.path.join(BASE_DIR, 'media') are correctly configured in settings.py.
-▶ The media/ folder must exist to store uploaded images.
-▶ The prediction form in predict.html must include enctype="multipart/form-data" to handle file uploads: <form method="POST" enctype="multipart/form-data">.
-▶ To clear past predictions, you can delete records directly from the SkinPrediction table in db.sqlite3.
+✅ Ensure skin_disease_model.h5 is in the correct directory.
+
+✅ In settings.py, check:
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+✅ Ensure media/ folder exists (for uploaded files).
+
+✅ Prediction form (predict.html) must use:
+
+<form method="POST" enctype="multipart/form-data">
+
+
+🗑 To clear old predictions, delete records from the SkinPrediction table in db.sqlite3.
