@@ -1,4 +1,4 @@
-*** Skin Disease Detection Web App ***
+# Skin Disease Detection Web App 
 A Django-based web application that allows users to upload skin images and get predictions of skin diseases using a pre-trained deep learning model. The app also provides precautions and advice for each detected disease.
 
 *** Features ***
