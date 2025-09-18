@@ -129,7 +129,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 🗑 To clear old predictions, delete records from the SkinPrediction table in db.sqlite3.
 
 
-ScreenShot
-
-<img width="1798" height="960" alt="Screenshot 2025-09-19 003206" src="https://github.com/user-attachments/assets/19cb8b0b-a6c9-4232-abd9-d9a86ca25ef5" />
 
