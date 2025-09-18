@@ -2,30 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Skin Disease Prediction</title>
+    <title>Skin Disease Detection Chat</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .chat-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            height: 75vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 12px 18px;
+            border-radius: 20px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .bot-message {
+            background: #e3f2fd;
+            align-self: flex-start;
+            text-align: left;
+        }
+        .user-message {
+            background: #d1c4e9;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .message img {
+            max-width: 200px;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+        .chat-input {
+            max-width: 700px;
+            margin: 20px auto 0;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+        }
+        .chat-input input[type="file"] {
+            display: none;
+        }
+        .btn-send, .btn-upload {
+            background: #4e73df;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn-send:hover, .btn-upload:hover {
+            background: #365acb;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4">Skin Disease Prediction</h2>
+<div class="container mt-3">
+    <h2>Skin Disease Detection</h2>
 
-    {% if error_msg %}
-        <div class="alert alert-danger">{{ error_msg }}</div>
-    {% endif %}
+    <div class="chat-box">
+        <!-- Loop through chat messages -->
+        {% for msg in chat %}
+            <div class="message {% if msg.sender == 'user' %}user-message{% else %}bot-message{% endif %}">
+                {{ msg.text }}
+                {% if msg.image %}
+                    <br>
+                    <img src="{{ msg.image }}" alt="Uploaded Image">
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="bot-message message">
+                👩‍⚕️ Hi! Please say "Hi" or upload your image for prediction.
+            </div>
+        {% endfor %}
+    </div>
 
-    {% if result %}
-        <div class="alert alert-success">
-            <strong>Prediction:</strong> {{ result }}<br>
-            <strong>Precautions:</strong> {{ suggestion }}
-        </div>
-    {% endif %}
-
-    <form method="POST" enctype="multipart/form-data">
+    <!-- Chat input -->
+    <form method="POST" enctype="multipart/form-data" class="chat-input">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Predict</button>
+        <input type="text" name="user_message" placeholder="Type a message...">
+        <label class="btn-upload">
+            📎
+            <input type="file" name="image" onchange="this.form.submit()">
+        </label>
+        <button type="submit" class="btn-send">➤</button>
     </form>
 </div>
 </body>
 </html>
-
